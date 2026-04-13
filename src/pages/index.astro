@@ -35,8 +35,8 @@ import { SITE, PACKAGES, ADD_ONS, FAQS, PORTFOLIO } from '../lib/config'
       <h2 class="text-3xl text-center mb-2">Our Work</h2>
       <p class="text-center text-muted text-sm mb-10">Every wedding is different. Here's a glimpse of what we've created.</p>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {PORTFOLIO.map((item) => (
-          <div class="group relative rounded-xl overflow-hidden aspect-[3/4]">
+        {PORTFOLIO.map((item, i) => (
+          <div class="group relative rounded-xl overflow-hidden aspect-[3/4] cursor-pointer" data-lightbox-trigger={i} data-lightbox-src={item.image.replace('w=600', 'w=1200')} data-lightbox-caption={item.caption}>
             <img src={item.image} alt={item.caption} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
             <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
               <p class="text-xs text-white">{item.caption}</p>
@@ -46,6 +46,23 @@ import { SITE, PACKAGES, ADD_ONS, FAQS, PORTFOLIO } from '../lib/config'
       </div>
     </div>
   </section>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 z-[90] bg-charcoal/90 backdrop-blur-sm hidden items-center justify-center p-6">
+    <button id="lightbox-close" class="absolute top-4 right-4 text-white/70 hover:text-white z-10" aria-label="Close lightbox">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <button id="lightbox-prev" class="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white z-10" aria-label="Previous image">
+      <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+    </button>
+    <button id="lightbox-next" class="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white z-10" aria-label="Next image">
+      <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+    </button>
+    <div class="max-w-4xl w-full text-center">
+      <img id="lightbox-img" src="" alt="" class="max-h-[75vh] mx-auto rounded-lg object-contain" />
+      <p id="lightbox-caption" class="mt-4 text-white/90 text-sm" style="font-family: system-ui, sans-serif;"></p>
+    </div>
+  </div>
 
   <!-- Packages -->
   <section id="packages" class="py-20 px-6 bg-blush-light/20">
@@ -192,6 +209,44 @@ import { SITE, PACKAGES, ADD_ONS, FAQS, PORTFOLIO } from '../lib/config'
       status.textContent = 'Thank you! We\'ll respond within 48 hours with initial thoughts and availability.'
       status.className = 'rounded-lg bg-sage/10 border border-sage/20 p-3 text-center text-sm text-sage-dark'
       ;(e.target as HTMLFormElement).querySelectorAll('input, select, textarea, button').forEach(el => (el as HTMLInputElement).disabled = true)
+    })
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox')!
+    const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement
+    const lightboxCaption = document.getElementById('lightbox-caption')!
+    const triggers = document.querySelectorAll('[data-lightbox-trigger]')
+    let currentIdx = 0
+    const items = Array.from(triggers).map(el => ({
+      src: (el as HTMLElement).dataset.lightboxSrc!,
+      caption: (el as HTMLElement).dataset.lightboxCaption!,
+    }))
+
+    function showLightbox(idx: number) {
+      currentIdx = ((idx % items.length) + items.length) % items.length
+      lightboxImg.src = items[currentIdx].src
+      lightboxImg.alt = items[currentIdx].caption
+      lightboxCaption.textContent = items[currentIdx].caption
+      lightbox.classList.remove('hidden')
+      lightbox.classList.add('flex')
+    }
+    function closeLightbox() {
+      lightbox.classList.add('hidden')
+      lightbox.classList.remove('flex')
+    }
+
+    triggers.forEach(el => {
+      el.addEventListener('click', () => showLightbox(Number((el as HTMLElement).dataset.lightboxTrigger)))
+    })
+    document.getElementById('lightbox-close')?.addEventListener('click', closeLightbox)
+    document.getElementById('lightbox-prev')?.addEventListener('click', () => showLightbox(currentIdx - 1))
+    document.getElementById('lightbox-next')?.addEventListener('click', () => showLightbox(currentIdx + 1))
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox() })
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.classList.contains('hidden')) return
+      if (e.key === 'Escape') closeLightbox()
+      if (e.key === 'ArrowLeft') showLightbox(currentIdx - 1)
+      if (e.key === 'ArrowRight') showLightbox(currentIdx + 1)
     })
 
     // Inline AI
