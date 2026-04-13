@@ -59,9 +59,9 @@ import { SITE, PACKAGES, ADD_ONS, FAQS, PORTFOLIO } from '../lib/config'
             <h3 class="text-xl text-charcoal">{pkg.name}</h3>
             <p class="text-lg text-sage font-medium mt-1" style="font-family: system-ui, sans-serif;">{pkg.price}</p>
             <p class="text-sm text-muted mt-3 leading-relaxed">{pkg.description}</p>
-            <a href="#inquiry" class={`block mt-5 text-center rounded-full py-2.5 text-sm font-medium transition-colors ${pkg.popular ? 'bg-sage text-white hover:bg-sage-dark' : 'border border-sage/30 text-sage hover:bg-sage/5'}`} style="font-family: system-ui, sans-serif;">
-              Inquire
-            </a>
+            <button data-add-item data-name={pkg.name} data-price={pkg.price.replace(/[^0-9]/g, '')} data-label="Select" class={`block w-full mt-5 text-center rounded-full py-2.5 text-sm font-medium transition-colors cursor-pointer ${pkg.popular ? 'bg-sage text-white hover:bg-sage-dark' : 'border border-sage/30 text-sage hover:bg-sage/5'}`} style="font-family: system-ui, sans-serif;">
+              Select
+            </button>
           </div>
         ))}
       </div>
@@ -81,6 +81,7 @@ import { SITE, PACKAGES, ADD_ONS, FAQS, PORTFOLIO } from '../lib/config'
               <span class="text-xs text-sage font-medium whitespace-nowrap" style="font-family: system-ui, sans-serif;">{addon.price}</span>
             </div>
             <p class="text-xs text-muted leading-relaxed">{addon.description}</p>
+            <button data-add-item data-name={addon.name} data-price={addon.price.replace(/[^0-9]/g, '') || '0'} data-label="Select" class="mt-2 rounded-full bg-sage/10 text-sage text-xs font-medium px-3 py-1 hover:bg-sage/20 transition-colors" style="font-family: system-ui, sans-serif;">Select</button>
           </div>
         ))}
       </div>
@@ -170,6 +171,19 @@ import { SITE, PACKAGES, ADD_ONS, FAQS, PORTFOLIO } from '../lib/config'
       <cite class="mt-4 block text-sm text-muted not-italic" style="font-family: system-ui, sans-serif;">— Hannah & David, October 2025, The Ridgeline Estate</cite>
     </blockquote>
   </section>
+
+  <script>
+    document.querySelectorAll('[data-add-item]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const el = btn as HTMLElement;
+        const name = el.dataset.name!;
+        const price = el.dataset.price!;
+        (window as any).addToCart(name, price);
+        el.textContent = 'Added!';
+        setTimeout(() => { el.textContent = el.dataset.label || 'Select'; }, 1000);
+      });
+    });
+  </script>
 
   <script>
     document.getElementById('inquiry-form')?.addEventListener('submit', (e) => {
