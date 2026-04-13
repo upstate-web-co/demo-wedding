@@ -1,0 +1,65 @@
+---
+import '../styles/global.css'
+import { SITE } from '../lib/config'
+
+interface Props { title?: string; description?: string }
+const { title = `${SITE.name} — ${SITE.tagline}`, description = `${SITE.tagline}. Serving weddings and events across the Greenville, SC Upstate.` } = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="preconnect" href="https://images.unsplash.com" />
+</head>
+<body class="bg-ivory text-charcoal antialiased">
+  <nav class="sticky top-0 z-50 bg-ivory/95 backdrop-blur-sm border-b border-blush/30">
+    <div class="mx-auto max-w-6xl flex items-center justify-between px-6 py-4">
+      <a href="/" class="text-xl tracking-wide"><span class="text-sage">Bloom</span> <span class="text-blush-dark">&</span> <span class="text-charcoal">Vow</span></a>
+      <div class="hidden md:flex items-center gap-6 text-sm" style="font-family: system-ui, sans-serif;">
+        <a href="#portfolio" class="text-muted hover:text-sage transition-colors">Portfolio</a>
+        <a href="#packages" class="text-muted hover:text-sage transition-colors">Packages</a>
+        <a href="#add-ons" class="text-muted hover:text-sage transition-colors">Add-Ons</a>
+        <a href="#faq" class="text-muted hover:text-sage transition-colors">FAQ</a>
+        <a href="#inquiry" class="rounded-full bg-sage px-5 py-2 font-medium text-white hover:bg-sage-dark transition-colors">Inquire</a>
+      </div>
+    </div>
+  </nav>
+  <main><slot /></main>
+
+  <!-- Demo Disclaimer -->
+  <div class="bg-yellow-50 border-y border-yellow-200 py-3 px-6 text-center">
+    <p class="text-xs text-yellow-800">
+      <strong>Portfolio Demo</strong> — This is a sample site built by <a href="https://upstate-web.com" class="underline hover:text-yellow-900">Upstate Web Co</a> to showcase what we build for this industry. This is not a real business.
+    </p>
+  </div>
+
+  <footer class="border-t border-blush/20 bg-blush-light/30">
+    <div class="mx-auto max-w-6xl px-6 py-10">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <p class="text-lg tracking-wide"><span class="text-sage">Bloom</span> & Vow</p>
+          <p class="text-sm text-muted mt-2">{SITE.tagline}</p>
+          <p class="text-sm text-muted">{SITE.location}</p>
+        </div>
+        <div class="text-sm text-muted" style="font-family: system-ui, sans-serif;">
+          <p class="font-medium text-charcoal mb-2">Contact</p>
+          <p><a href={`mailto:${SITE.email}`} class="hover:text-sage">{SITE.email}</a></p>
+          <p class="mt-1">{SITE.phone}</p>
+        </div>
+        <div class="text-sm text-muted" style="font-family: system-ui, sans-serif;">
+          <p class="font-medium text-charcoal mb-2">Follow</p>
+          <p><a href="#" class="hover:text-sage">Instagram @bloomandvow</a></p>
+          <p><a href="#" class="hover:text-sage">Pinterest</a></p>
+        </div>
+      </div>
+      <div class="mt-8 pt-6 border-t border-blush/20 text-center text-xs text-muted">
+        &copy; {new Date().getFullYear()} {SITE.name}. Built by <a href="https://upstate-web.com" class="text-sage hover:underline">Upstate Web Co</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

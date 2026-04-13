@@ -1,0 +1,201 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { SITE, PACKAGES, ADD_ONS, FAQS, PORTFOLIO } from '../lib/config'
+---
+
+<Layout>
+  <!-- Hero -->
+  <section class="relative h-[80vh] flex items-center justify-center overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&q=80" alt="Wedding floral arch" class="absolute inset-0 w-full h-full object-cover brightness-[0.45]" loading="eager" />
+    <div class="relative text-center px-6">
+      <p class="text-blush text-sm uppercase tracking-[0.3em] mb-4" style="font-family: system-ui, sans-serif;">Wedding Florals & Event Design</p>
+      <h1 class="text-5xl md:text-7xl text-white tracking-tight">Bloom & Vow</h1>
+      <p class="mt-4 text-lg text-white/80 italic max-w-lg mx-auto">Turning your vision into something you can smell, touch, and remember forever.</p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center" style="font-family: system-ui, sans-serif;">
+        <a href="#inquiry" class="rounded-full bg-sage px-8 py-3 font-medium text-white hover:bg-sage-dark transition-colors">Start Your Inquiry</a>
+        <a href="#portfolio" class="rounded-full border border-white/30 px-8 py-3 font-medium text-white hover:bg-white/10 transition-colors">View Our Work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inline AI -->
+  <section class="bg-blush-light/40 py-6 px-6">
+    <div class="mx-auto max-w-xl">
+      <div class="flex gap-2">
+        <input id="ai-ask" type="text" placeholder="Ask anything — packages, availability, what flowers are in season..." class="flex-1 rounded-full border border-blush-dark/20 bg-white px-5 py-3 text-sm text-charcoal placeholder:text-muted focus:border-sage focus:outline-none" />
+        <button id="ai-send" class="rounded-full bg-sage px-5 py-3 text-sm font-medium text-white hover:bg-sage-dark transition-colors" style="font-family: system-ui, sans-serif;">Ask</button>
+      </div>
+      <div id="ai-response" class="hidden mt-3 rounded-xl bg-white border border-blush/20 p-4 text-sm text-charcoal leading-relaxed"></div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio" class="py-20 px-6">
+    <div class="mx-auto max-w-6xl">
+      <h2 class="text-3xl text-center mb-2">Our Work</h2>
+      <p class="text-center text-muted text-sm mb-10">Every wedding is different. Here's a glimpse of what we've created.</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {PORTFOLIO.map((item) => (
+          <div class="group relative rounded-xl overflow-hidden aspect-[3/4]">
+            <img src={item.image} alt={item.caption} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+              <p class="text-xs text-white">{item.caption}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Packages -->
+  <section id="packages" class="py-20 px-6 bg-blush-light/20">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-3xl text-center mb-2">Packages</h2>
+      <p class="text-center text-muted text-sm mb-10">Starting points — we customize every wedding to your vision and venue.</p>
+      <div class="grid md:grid-cols-3 gap-5">
+        {PACKAGES.map((pkg) => (
+          <div class={`rounded-xl bg-white p-6 ${pkg.popular ? 'border-2 border-sage ring-1 ring-sage/20' : 'border border-blush/30'}`}>
+            {pkg.popular && <p class="text-xs font-medium text-sage uppercase tracking-wide mb-2" style="font-family: system-ui, sans-serif;">Most Popular</p>}
+            <h3 class="text-xl text-charcoal">{pkg.name}</h3>
+            <p class="text-lg text-sage font-medium mt-1" style="font-family: system-ui, sans-serif;">{pkg.price}</p>
+            <p class="text-sm text-muted mt-3 leading-relaxed">{pkg.description}</p>
+            <a href="#inquiry" class={`block mt-5 text-center rounded-full py-2.5 text-sm font-medium transition-colors ${pkg.popular ? 'bg-sage text-white hover:bg-sage-dark' : 'border border-sage/30 text-sage hover:bg-sage/5'}`} style="font-family: system-ui, sans-serif;">
+              Inquire
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Add-On Services -->
+  <section id="add-ons" class="py-20 px-6">
+    <div class="mx-auto max-w-3xl">
+      <h2 class="text-3xl text-center mb-2">Add-On Services</h2>
+      <p class="text-center text-muted text-sm mb-10">Make your day even more seamless. Mix and match with any package.</p>
+      <div class="grid sm:grid-cols-2 gap-3">
+        {ADD_ONS.map((addon) => (
+          <div class="rounded-xl border border-blush/20 bg-white p-5">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="font-medium text-charcoal text-sm" style="font-family: system-ui, sans-serif;">{addon.name}</h3>
+              <span class="text-xs text-sage font-medium whitespace-nowrap" style="font-family: system-ui, sans-serif;">{addon.price}</span>
+            </div>
+            <p class="text-xs text-muted leading-relaxed">{addon.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-20 px-6 bg-blush-light/20">
+    <div class="mx-auto max-w-2xl">
+      <h2 class="text-3xl text-center mb-10">Frequently Asked Questions</h2>
+      <div class="divide-y divide-blush/30 rounded-xl border border-blush/20 bg-white">
+        {FAQS.map((faq) => (
+          <details class="group px-6 py-4">
+            <summary class="flex cursor-pointer items-center justify-between text-sm font-medium text-charcoal" style="font-family: system-ui, sans-serif;">
+              {faq.q}
+              <span class="ml-2 text-muted transition-transform group-open:rotate-180">&#9662;</span>
+            </summary>
+            <p class="mt-3 text-sm text-muted leading-relaxed">{faq.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Inquiry Form -->
+  <section id="inquiry" class="py-20 px-6">
+    <div class="mx-auto max-w-2xl">
+      <h2 class="text-3xl text-center mb-2">Tell Us About Your Day</h2>
+      <p class="text-center text-muted text-sm mb-10">We'd love to hear your vision. We respond within 48 hours.</p>
+      <form id="inquiry-form" class="space-y-4 bg-white rounded-xl border border-blush/20 p-6">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm text-charcoal mb-1" style="font-family: system-ui, sans-serif;">Your Name</label>
+            <input type="text" name="name" required class="w-full rounded-lg border border-blush/30 px-4 py-2.5 text-sm bg-ivory focus:border-sage focus:outline-none" />
+          </div>
+          <div>
+            <label class="block text-sm text-charcoal mb-1" style="font-family: system-ui, sans-serif;">Email</label>
+            <input type="email" name="email" required class="w-full rounded-lg border border-blush/30 px-4 py-2.5 text-sm bg-ivory focus:border-sage focus:outline-none" />
+          </div>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm text-charcoal mb-1" style="font-family: system-ui, sans-serif;">Wedding Date</label>
+            <input type="date" name="date" required class="w-full rounded-lg border border-blush/30 px-4 py-2.5 text-sm bg-ivory focus:border-sage focus:outline-none" />
+          </div>
+          <div>
+            <label class="block text-sm text-charcoal mb-1" style="font-family: system-ui, sans-serif;">Guest Count</label>
+            <select name="guests" class="w-full rounded-lg border border-blush/30 px-4 py-2.5 text-sm bg-ivory focus:border-sage focus:outline-none">
+              <option value="">Approximate...</option>
+              <option value="under-50">Under 50</option>
+              <option value="50-100">50–100</option>
+              <option value="100-200">100–200</option>
+              <option value="200+">200+</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm text-charcoal mb-1" style="font-family: system-ui, sans-serif;">Venue</label>
+            <input type="text" name="venue" placeholder="Venue name or 'still deciding'" class="w-full rounded-lg border border-blush/30 px-4 py-2.5 text-sm bg-ivory focus:border-sage focus:outline-none" />
+          </div>
+          <div>
+            <label class="block text-sm text-charcoal mb-1" style="font-family: system-ui, sans-serif;">Budget Range</label>
+            <select name="budget" class="w-full rounded-lg border border-blush/30 px-4 py-2.5 text-sm bg-ivory focus:border-sage focus:outline-none">
+              <option value="">Select...</option>
+              <option value="under-2k">Under $2,000</option>
+              <option value="2k-4k">$2,000–$4,000</option>
+              <option value="4k-7k">$4,000–$7,000</option>
+              <option value="7k+">$7,000+</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm text-charcoal mb-1" style="font-family: system-ui, sans-serif;">Tell us about your vision</label>
+          <textarea name="vision" rows="4" placeholder="Colors, mood, flowers you love, Pinterest boards..." class="w-full rounded-lg border border-blush/30 px-4 py-2.5 text-sm bg-ivory focus:border-sage focus:outline-none"></textarea>
+        </div>
+        <button type="submit" class="w-full rounded-full bg-sage px-6 py-3 font-medium text-white hover:bg-sage-dark transition-colors" style="font-family: system-ui, sans-serif;">Send Inquiry</button>
+        <div id="form-status" class="hidden rounded-lg p-3 text-center text-sm"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="py-16 px-6 bg-blush-light/20 text-center">
+    <blockquote class="mx-auto max-w-xl">
+      <p class="text-lg italic text-charcoal leading-relaxed">"They took my vague Pinterest board and turned it into something better than I imagined. Every guest asked about the flowers."</p>
+      <cite class="mt-4 block text-sm text-muted not-italic" style="font-family: system-ui, sans-serif;">— Hannah & David, October 2025, The Cliffs at Glassy</cite>
+    </blockquote>
+  </section>
+
+  <script>
+    document.getElementById('inquiry-form')?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      const status = document.getElementById('form-status')!
+      status.textContent = 'Thank you! We\'ll respond within 48 hours with initial thoughts and availability.'
+      status.className = 'rounded-lg bg-sage/10 border border-sage/20 p-3 text-center text-sm text-sage-dark'
+      ;(e.target as HTMLFormElement).querySelectorAll('input, select, textarea, button').forEach(el => (el as HTMLInputElement).disabled = true)
+    })
+
+    // Inline AI
+    const aiInput = document.getElementById('ai-ask') as HTMLInputElement
+    const aiSend = document.getElementById('ai-send')!
+    const aiResponse = document.getElementById('ai-response')!
+    async function askAI() {
+      const text = aiInput.value.trim()
+      if (!text) return
+      aiResponse.textContent = 'Thinking...'
+      aiResponse.classList.remove('hidden')
+      try {
+        const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: text }) })
+        const data = await res.json()
+        aiResponse.textContent = data.reply || 'I\'m not sure — email us at hello@bloomandvow.com!'
+      } catch { aiResponse.textContent = 'Something went wrong. Email us!' }
+    }
+    aiSend.addEventListener('click', askAI)
+    aiInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') askAI() })
+  </script>
+</Layout>
