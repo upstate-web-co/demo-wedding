@@ -33,12 +33,12 @@ export const FAQS = [
 ]
 
 export const PORTFOLIO = [
-  { image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80', caption: 'Lush garden arch — The Ridgeline Estate' },
-  { image: 'https://images.unsplash.com/photo-1522748906645-95d8adfd52c7?w=600&q=80', caption: 'Blush + ivory bridal bouquet' },
-  { image: 'https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=600&q=80', caption: 'Rustic barn reception — Evergreen Valley Farm' },
-  { image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80', caption: 'Romantic table centerpieces' },
-  { image: 'https://images.unsplash.com/photo-1507504031003-b417219a0fde?w=600&q=80', caption: 'Ceremony aisle with petal accents' },
-  { image: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=600&q=80', caption: 'Estate package — full venue design' },
-  { image: 'https://images.unsplash.com/photo-1550005809-91ad75fb315f?w=600&q=80', caption: 'Hanging floral installation' },
-  { image: 'https://images.unsplash.com/photo-1525772764200-be829a350797?w=600&q=80', caption: 'Intimate elopement arrangement' },
+  { image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80', caption: 'Luxe wedding at The Ridgeline Estate — suspended floral installations, sweetheart table design, and 200-guest reception decor. Estate Package.' },
+  { image: 'https://images.unsplash.com/photo-1522748906645-95d8adfd52c7?w=600&q=80', caption: 'Hand-tied bridal bouquet in blush and ivory with trailing silk ribbon — garden roses, ranunculus, and eucalyptus. Included in every package.' },
+  { image: 'https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=600&q=80', caption: 'Rustic barn reception at Evergreen Valley Farm — wildflower centerpieces, wooden arch with climbing greenery, and mason jar aisle markers. Garden Package.' },
+  { image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80', caption: 'Romantic candlelit reception — low lush centerpieces with roses, peonies, and votives for 12 tables. Garden Package with candle add-on.' },
+  { image: 'https://images.unsplash.com/photo-1507504031003-b417219a0fde?w=600&q=80', caption: 'Ceremony aisle with scattered petals and lantern-lined path leading to a floral-draped arbor. Garden Package ceremony design.' },
+  { image: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=600&q=80', caption: 'Full venue transformation — ceremony arch, cocktail hour arrangements, reception centerpieces, cake flowers, and hanging installations. Estate Package.' },
+  { image: 'https://images.unsplash.com/photo-1550005809-91ad75fb315f?w=600&q=80', caption: 'Suspended floral installation over the dance floor — cascading greenery, white orchids, and fairy lights. Estate Package custom installation.' },
+  { image: 'https://images.unsplash.com/photo-1525772764200-be829a350797?w=600&q=80', caption: 'Modern minimalist elopement — single-stem arrangements, ceremony backdrop, and boutonniere. Petite Package.' },
 ]
