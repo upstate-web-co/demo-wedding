@@ -1,8 +1,8 @@
 export const SITE = {
-  name: 'Bloom & Vow',
+  name: 'Lark & Bower',
   tagline: 'Wedding florals & event design',
-  url: 'https://bloomandvow.com',
-  email: 'hello@bloomandvow.com',
+  url: 'https://larkandbower.com',
+  email: 'hello@larkandbower.com',
   phone: '(864) 555-7291',
   location: 'Greenville, SC',
 } as const
@@ -33,9 +33,9 @@ export const FAQS = [
 ]
 
 export const PORTFOLIO = [
-  { image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80', caption: 'Lush garden arch — The Cliffs at Glassy' },
+  { image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80', caption: 'Lush garden arch — The Ridgeline Estate' },
   { image: 'https://images.unsplash.com/photo-1522748906645-95d8adfd52c7?w=600&q=80', caption: 'Blush + ivory bridal bouquet' },
-  { image: 'https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=600&q=80', caption: 'Rustic barn reception — Greenbrier Farms' },
+  { image: 'https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=600&q=80', caption: 'Rustic barn reception — Evergreen Valley Farm' },
   { image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80', caption: 'Romantic table centerpieces' },
   { image: 'https://images.unsplash.com/photo-1507504031003-b417219a0fde?w=600&q=80', caption: 'Ceremony aisle with petal accents' },
   { image: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=600&q=80', caption: 'Estate package — full venue design' },

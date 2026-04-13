@@ -9,7 +9,7 @@ import { SITE, PACKAGES, ADD_ONS, FAQS, PORTFOLIO } from '../lib/config'
     <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&q=80" alt="Wedding floral arch" class="absolute inset-0 w-full h-full object-cover brightness-[0.45]" loading="eager" />
     <div class="relative text-center px-6">
       <p class="text-blush text-sm uppercase tracking-[0.3em] mb-4" style="font-family: system-ui, sans-serif;">Wedding Florals & Event Design</p>
-      <h1 class="text-5xl md:text-7xl text-white tracking-tight">Bloom & Vow</h1>
+      <h1 class="text-5xl md:text-7xl text-white tracking-tight">Lark & Bower</h1>
       <p class="mt-4 text-lg text-white/80 italic max-w-lg mx-auto">Turning your vision into something you can smell, touch, and remember forever.</p>
       <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center" style="font-family: system-ui, sans-serif;">
         <a href="#inquiry" class="rounded-full bg-sage px-8 py-3 font-medium text-white hover:bg-sage-dark transition-colors">Start Your Inquiry</a>
@@ -167,7 +167,7 @@ import { SITE, PACKAGES, ADD_ONS, FAQS, PORTFOLIO } from '../lib/config'
   <section class="py-16 px-6 bg-blush-light/20 text-center">
     <blockquote class="mx-auto max-w-xl">
       <p class="text-lg italic text-charcoal leading-relaxed">"They took my vague Pinterest board and turned it into something better than I imagined. Every guest asked about the flowers."</p>
-      <cite class="mt-4 block text-sm text-muted not-italic" style="font-family: system-ui, sans-serif;">— Hannah & David, October 2025, The Cliffs at Glassy</cite>
+      <cite class="mt-4 block text-sm text-muted not-italic" style="font-family: system-ui, sans-serif;">— Hannah & David, October 2025, The Ridgeline Estate</cite>
     </blockquote>
   </section>
 
@@ -192,7 +192,7 @@ import { SITE, PACKAGES, ADD_ONS, FAQS, PORTFOLIO } from '../lib/config'
       try {
         const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: text }) })
         const data = await res.json()
-        aiResponse.textContent = data.reply || 'I\'m not sure — email us at hello@bloomandvow.com!'
+        aiResponse.textContent = data.reply || 'I\'m not sure — email us at hello@larkandbower.com!'
       } catch { aiResponse.textContent = 'Something went wrong. Email us!' }
     }
     aiSend.addEventListener('click', askAI)
