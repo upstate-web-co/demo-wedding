@@ -1,15 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import { SITE, PACKAGES, ADD_ONS, FAQS, PORTFOLIO } from '../lib/config'
+import { SITE, PACKAGES, ADD_ONS, FAQS, PORTFOLIO, SEASONAL_FLOWERS, DESIGNER } from '../lib/config'
+
+const month = new Date().getMonth()
+const seasonKey = month >= 2 && month <= 4 ? 'spring' : month >= 5 && month <= 7 ? 'summer' : month >= 8 && month <= 10 ? 'fall' : 'winter'
+const currentSeason = SEASONAL_FLOWERS[seasonKey]
 ---
 
 <Layout>
   <!-- Hero -->
   <section class="relative h-[80vh] flex items-center justify-center overflow-hidden">
-    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=75&auto=format" alt="Wedding floral arch" class="absolute inset-0 w-full h-full object-cover brightness-[0.45]" loading="eager" width="1200" height="800" fetchpriority="high" />
+    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&q=80" alt="Wedding floral arch" class="absolute inset-0 w-full h-full object-cover brightness-[0.45]" loading="eager" />
     <div class="relative text-center px-6">
       <p class="text-blush text-sm uppercase tracking-[0.3em] mb-4" style="font-family: system-ui, sans-serif;">Wedding Florals & Event Design</p>
-      <h1 class="text-5xl md:text-7xl text-white tracking-tight">Lark & Bower</h1>
+      <h1 class="text-5xl md:text-7xl text-white tracking-tight">Bloom & Vow</h1>
       <p class="mt-4 text-lg text-white/80 italic max-w-lg mx-auto">Turning your vision into something you can smell, touch, and remember forever.</p>
       <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center" style="font-family: system-ui, sans-serif;">
         <a href="#inquiry" class="rounded-full bg-sage px-8 py-3 font-medium text-white hover:bg-sage-dark transition-colors">Start Your Inquiry</a>
@@ -18,13 +22,30 @@ import { SITE, PACKAGES, ADD_ONS, FAQS, PORTFOLIO } from '../lib/config'
     </div>
   </section>
 
-  <!-- AI Chat -->
-  <section class="bg-blush-light/40 py-6 px-6">
+  <!-- Inline AI Chat -->
+  <section class="bg-blush-light/40 py-8 px-6">
     <div class="mx-auto max-w-xl">
-      <div id="chat-container" class="rounded-xl border border-blush-dark/20 bg-white overflow-hidden">
+      <!-- Avatar + label -->
+      <div class="flex items-center gap-3 mb-4">
+        <img src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=200&q=80" alt="Bloom & Vow" class="w-12 h-12 rounded-full object-cover border-2 border-sage/25 shadow-sm" />
+        <div>
+          <p class="text-sm font-medium text-charcoal" style="font-family: system-ui, sans-serif;">Ask Bloom & Vow</p>
+          <p class="text-xs text-muted">Packages, seasonal blooms, availability</p>
+        </div>
+      </div>
+      <!-- Chat container -->
+      <div class="rounded-xl border border-blush/20 bg-white overflow-hidden">
+        <!-- Messages -->
         <div id="chat-messages" class="hidden max-h-80 overflow-y-auto px-4 pt-4 pb-2 space-y-3"></div>
-        <div id="chat-input-bar" class="flex gap-2 p-3">
-          <input id="chat-input" type="text" placeholder="Ask anything — packages, availability, what flowers are in season..." class="flex-1 rounded-full border border-blush-dark/20 bg-blush-light/30 px-5 py-2.5 text-sm text-charcoal placeholder:text-muted focus:border-sage focus:outline-none" />
+        <!-- Quick actions -->
+        <div id="chat-quick" class="flex gap-2 px-3 py-2.5 overflow-x-auto border-b border-blush/15" style="font-family: system-ui, sans-serif;">
+          <button class="chat-q shrink-0 rounded-full border border-sage/20 bg-sage/5 px-3 py-1.5 text-xs font-medium text-sage hover:bg-sage/10 transition-colors" data-msg="What packages do you offer?">Packages</button>
+          <button class="chat-q shrink-0 rounded-full border border-sage/20 bg-sage/5 px-3 py-1.5 text-xs font-medium text-sage hover:bg-sage/10 transition-colors" data-msg="What flowers are in season right now?">In Season</button>
+          <button class="chat-q shrink-0 rounded-full border border-sage/20 bg-sage/5 px-3 py-1.5 text-xs font-medium text-sage hover:bg-sage/10 transition-colors" data-msg="How far in advance should I book?">Booking</button>
+        </div>
+        <!-- Input -->
+        <div class="flex gap-2 p-3">
+          <input id="chat-input" type="text" placeholder="Ask about packages, flowers, availability..." maxlength="500" autocomplete="off" class="flex-1 rounded-full border border-blush/20 bg-ivory px-5 py-2.5 text-sm text-charcoal placeholder:text-muted focus:border-sage focus:outline-none" />
           <button id="chat-send" class="rounded-full bg-sage px-5 py-2.5 text-sm font-medium text-white hover:bg-sage-dark transition-colors" style="font-family: system-ui, sans-serif;">Ask</button>
         </div>
       </div>
@@ -34,11 +55,11 @@ import { SITE, PACKAGES, ADD_ONS, FAQS, PORTFOLIO } from '../lib/config'
   <!-- Portfolio -->
   <section id="portfolio" class="py-20 px-6">
     <div class="mx-auto max-w-6xl">
-      <h2 class="text-3xl text-center mb-2">Our Work</h2>
-      <p class="text-center text-muted text-sm mb-10">Every wedding is different. Here's a glimpse of what we've created.</p>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {PORTFOLIO.map((item, i) => (
-          <div class="group relative rounded-xl overflow-hidden aspect-[3/4] cursor-pointer" data-lightbox-trigger={i} data-lightbox-src={item.image.replace('w=600', 'w=1200')} data-lightbox-caption={item.caption}>
+      <h2 class="reveal text-3xl text-center mb-2">Our Work</h2>
+      <p class="reveal delay-1 text-center text-muted text-sm mb-10">Every wedding is different. Here's a glimpse of what we've created.</p>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+        {PORTFOLIO.map((item) => (
+          <div class="group relative rounded-xl overflow-hidden aspect-[3/4]">
             <img src={item.image} alt={item.caption} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
             <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
               <p class="text-xs text-white">{item.caption}</p>
@@ -49,38 +70,31 @@ import { SITE, PACKAGES, ADD_ONS, FAQS, PORTFOLIO } from '../lib/config'
     </div>
   </section>
 
-  <!-- Lightbox -->
-  <div id="lightbox" class="fixed inset-0 z-[90] bg-charcoal/90 backdrop-blur-sm hidden items-center justify-center p-6">
-    <button id="lightbox-close" class="absolute top-4 right-4 text-white/70 hover:text-white z-10" aria-label="Close lightbox">
-      <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-    </button>
-    <button id="lightbox-prev" class="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white z-10" aria-label="Previous image">
-      <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-    </button>
-    <button id="lightbox-next" class="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white z-10" aria-label="Next image">
-      <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-    </button>
-    <div class="max-w-4xl w-full text-center">
-      <img id="lightbox-img" src="" alt="" class="max-h-[75vh] mx-auto rounded-lg object-contain" />
-      <p id="lightbox-caption" class="mt-4 text-white/90 text-sm" style="font-family: system-ui, sans-serif;"></p>
-    </div>
-  </div>
+  <!-- Testimonial (moved: social proof before pricing) — parallax background -->
+  <section class="relative py-24 px-6 text-center overflow-hidden">
+    <div class="parallax-bg absolute inset-0" style="background-image: url('https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=1600&q=80');"></div>
+    <div class="absolute inset-0 bg-charcoal/55"></div>
+    <blockquote class="reveal relative z-10 mx-auto max-w-xl">
+      <p class="text-xl md:text-2xl italic text-white leading-relaxed">"They took my vague Pinterest board and turned it into something better than I imagined. Every guest asked about the flowers."</p>
+      <cite class="mt-6 block text-sm text-blush-light not-italic tracking-wide" style="font-family: system-ui, sans-serif;">— Hannah & David, October 2025, The Cliffs at Glassy</cite>
+    </blockquote>
+  </section>
 
   <!-- Packages -->
-  <section id="packages" class="py-20 px-6 bg-blush-light/20">
+  <section id="packages" class="py-20 px-6">
     <div class="mx-auto max-w-4xl">
-      <h2 class="text-3xl text-center mb-2">Packages</h2>
-      <p class="text-center text-muted text-sm mb-10">Starting points — we customize every wedding to your vision and venue.</p>
+      <h2 class="reveal text-3xl text-center mb-2">Packages</h2>
+      <p class="reveal delay-1 text-center text-muted text-sm mb-10">Starting points — we customize every wedding to your vision and venue.</p>
       <div class="grid md:grid-cols-3 gap-5">
         {PACKAGES.map((pkg) => (
-          <div class={`rounded-xl bg-white p-6 ${pkg.popular ? 'border-2 border-sage ring-1 ring-sage/20' : 'border border-blush/30'}`}>
+          <div class={`rounded-xl bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${pkg.popular ? 'border-2 border-sage ring-1 ring-sage/20' : 'border border-blush/30 hover:border-sage/30'}`}>
             {pkg.popular && <p class="text-xs font-medium text-sage uppercase tracking-wide mb-2" style="font-family: system-ui, sans-serif;">Most Popular</p>}
             <h3 class="text-xl text-charcoal">{pkg.name}</h3>
             <p class="text-lg text-sage font-medium mt-1" style="font-family: system-ui, sans-serif;">{pkg.price}</p>
             <p class="text-sm text-muted mt-3 leading-relaxed">{pkg.description}</p>
-            <button data-add-item data-name={pkg.name} data-price={pkg.price.replace(/[^0-9]/g, '')} data-label="Select" class={`block w-full mt-5 text-center rounded-full py-2.5 text-sm font-medium transition-colors cursor-pointer ${pkg.popular ? 'bg-sage text-white hover:bg-sage-dark' : 'border border-sage/30 text-sage hover:bg-sage/5'}`} style="font-family: system-ui, sans-serif;">
-              Select
-            </button>
+            <a href="#inquiry" class={`block mt-5 text-center rounded-full py-2.5 text-sm font-medium transition-colors ${pkg.popular ? 'bg-sage text-white hover:bg-sage-dark' : 'border border-sage/30 text-sage hover:bg-sage/5'}`} style="font-family: system-ui, sans-serif;">
+              Inquire
+            </a>
           </div>
         ))}
       </div>
@@ -90,17 +104,16 @@ import { SITE, PACKAGES, ADD_ONS, FAQS, PORTFOLIO } from '../lib/config'
   <!-- Add-On Services -->
   <section id="add-ons" class="py-20 px-6">
     <div class="mx-auto max-w-3xl">
-      <h2 class="text-3xl text-center mb-2">Add-On Services</h2>
+      <h2 class="reveal text-3xl text-center mb-2">Add-On Services</h2>
       <p class="text-center text-muted text-sm mb-10">Make your day even more seamless. Mix and match with any package.</p>
       <div class="grid sm:grid-cols-2 gap-3">
         {ADD_ONS.map((addon) => (
-          <div class="rounded-xl border border-blush/20 bg-white p-5">
+          <div class="rounded-xl border border-blush/20 bg-white p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-sm hover:border-sage/20">
             <div class="flex justify-between items-start mb-2">
               <h3 class="font-medium text-charcoal text-sm" style="font-family: system-ui, sans-serif;">{addon.name}</h3>
               <span class="text-xs text-sage font-medium whitespace-nowrap" style="font-family: system-ui, sans-serif;">{addon.price}</span>
             </div>
             <p class="text-xs text-muted leading-relaxed">{addon.description}</p>
-            <button data-add-item data-name={addon.name} data-price={addon.price.replace(/[^0-9]/g, '') || '0'} data-label="Select" class="mt-2 rounded-full bg-sage/10 text-sage text-xs font-medium px-3 py-1 hover:bg-sage/20 transition-colors" style="font-family: system-ui, sans-serif;">Select</button>
           </div>
         ))}
       </div>
@@ -125,10 +138,37 @@ import { SITE, PACKAGES, ADD_ONS, FAQS, PORTFOLIO } from '../lib/config'
     </div>
   </section>
 
+  <!-- What's Blooming Now -->
+  <section class="py-20 px-6">
+    <div class="mx-auto max-w-3xl text-center">
+      <h2 class="reveal text-3xl mb-2">What's Blooming in {currentSeason.season}</h2>
+      <p class="reveal delay-1 text-muted text-sm mb-8">We design with what the season gives us — your flowers are always at their freshest and most vibrant.</p>
+      <div class="reveal delay-2 flex flex-wrap justify-center gap-3">
+        {currentSeason.flowers.map((flower: string) => (
+          <span class="rounded-full bg-sage/10 border border-sage/15 px-5 py-2.5 text-sm text-sage-dark" style="font-family: system-ui, sans-serif;">{flower}</span>
+        ))}
+      </div>
+      <p class="reveal delay-3 text-xs text-muted mt-6">Not sure what's in season for your date? <a href="#inquiry" class="text-sage underline hover:text-sage-dark">Ask us</a> — we'll send you a mood board.</p>
+    </div>
+  </section>
+
+  <!-- About the Designer -->
+  <section class="py-20 px-6 bg-blush-light/20">
+    <div class="mx-auto max-w-4xl grid md:grid-cols-2 gap-10 items-center">
+      <img src={DESIGNER.image} alt={DESIGNER.name} class="reveal rounded-xl aspect-[4/5] object-cover" loading="lazy" />
+      <div>
+        <p class="reveal text-sage text-xs uppercase tracking-[0.2em] mb-3" style="font-family: system-ui, sans-serif;">Meet the Designer</p>
+        <h2 class="reveal delay-1 text-3xl mb-4">The hands behind every stem.</h2>
+        <p class="reveal delay-2 text-muted leading-relaxed">{DESIGNER.story}</p>
+        <p class="reveal delay-3 mt-4 text-charcoal font-medium italic">— {DESIGNER.name}, {DESIGNER.title}</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Inquiry Form -->
   <section id="inquiry" class="py-20 px-6">
     <div class="mx-auto max-w-2xl">
-      <h2 class="text-3xl text-center mb-2">Tell Us About Your Day</h2>
+      <h2 class="reveal text-3xl text-center mb-2">Tell Us About Your Day</h2>
       <p class="text-center text-muted text-sm mb-10">We'd love to hear your vision. We respond within 48 hours.</p>
       <form id="inquiry-form" class="space-y-4 bg-white rounded-xl border border-blush/20 p-6">
         <div class="grid sm:grid-cols-2 gap-4">
@@ -183,27 +223,6 @@ import { SITE, PACKAGES, ADD_ONS, FAQS, PORTFOLIO } from '../lib/config'
     </div>
   </section>
 
-  <!-- Testimonial -->
-  <section class="py-16 px-6 bg-blush-light/20 text-center">
-    <blockquote class="mx-auto max-w-xl">
-      <p class="text-lg italic text-charcoal leading-relaxed">"They took my vague Pinterest board and turned it into something better than I imagined. Every guest asked about the flowers."</p>
-      <cite class="mt-4 block text-sm text-muted not-italic" style="font-family: system-ui, sans-serif;">— Hannah & David, October 2025, The Ridgeline Estate</cite>
-    </blockquote>
-  </section>
-
-  <script>
-    document.querySelectorAll('[data-add-item]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const el = btn as HTMLElement;
-        const name = el.dataset.name!;
-        const price = el.dataset.price!;
-        (window as any).addToCart(name, price);
-        el.textContent = 'Added!';
-        setTimeout(() => { el.textContent = el.dataset.label || 'Select'; }, 1000);
-      });
-    });
-  </script>
-
   <script>
     document.getElementById('inquiry-form')?.addEventListener('submit', (e) => {
       e.preventDefault()
@@ -213,91 +232,50 @@ import { SITE, PACKAGES, ADD_ONS, FAQS, PORTFOLIO } from '../lib/config'
       ;(e.target as HTMLFormElement).querySelectorAll('input, select, textarea, button').forEach(el => (el as HTMLInputElement).disabled = true)
     })
 
-    // Lightbox
-    const lightbox = document.getElementById('lightbox')!
-    const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement
-    const lightboxCaption = document.getElementById('lightbox-caption')!
-    const triggers = document.querySelectorAll('[data-lightbox-trigger]')
-    let currentIdx = 0
-    const items = Array.from(triggers).map(el => ({
-      src: (el as HTMLElement).dataset.lightboxSrc!,
-      caption: (el as HTMLElement).dataset.lightboxCaption!,
-    }))
-
-    function showLightbox(idx: number) {
-      currentIdx = ((idx % items.length) + items.length) % items.length
-      lightboxImg.src = items[currentIdx].src
-      lightboxImg.alt = items[currentIdx].caption
-      lightboxCaption.textContent = items[currentIdx].caption
-      lightbox.classList.remove('hidden')
-      lightbox.classList.add('flex')
-    }
-    function closeLightbox() {
-      lightbox.classList.add('hidden')
-      lightbox.classList.remove('flex')
-    }
-
-    triggers.forEach(el => {
-      el.addEventListener('click', () => showLightbox(Number((el as HTMLElement).dataset.lightboxTrigger)))
-    })
-    document.getElementById('lightbox-close')?.addEventListener('click', closeLightbox)
-    document.getElementById('lightbox-prev')?.addEventListener('click', () => showLightbox(currentIdx - 1))
-    document.getElementById('lightbox-next')?.addEventListener('click', () => showLightbox(currentIdx + 1))
-    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox() })
-    document.addEventListener('keydown', (e) => {
-      if (lightbox.classList.contains('hidden')) return
-      if (e.key === 'Escape') closeLightbox()
-      if (e.key === 'ArrowLeft') showLightbox(currentIdx - 1)
-      if (e.key === 'ArrowRight') showLightbox(currentIdx + 1)
-    })
-
     // Multi-turn AI chat
     const chatInput = document.getElementById('chat-input') as HTMLInputElement
     const chatSend = document.getElementById('chat-send')!
     const chatMessages = document.getElementById('chat-messages')!
-    let chatHistory: Array<{ role: string; content: string }> = []
+    const chatQuick = document.getElementById('chat-quick')!
+    const chatHistory: Array<{ role: string; content: string }> = []
     let chatBusy = false
 
-    function addMessage(role: string, text: string) {
+    function escapeHtml(t: string): string {
+      return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br />')
+    }
+    function linkify(h: string): string {
+      h = h.replace(/\(864\)\s*555-7291/g, '<a href="tel:+18645557291" class="text-sage underline">(864) 555-7291</a>')
+      h = h.replace(/hello@bloomandvow\.com/g, '<a href="mailto:hello@bloomandvow.com" class="text-sage underline">hello@bloomandvow.com</a>')
+      return h
+    }
+    function addMsg(role: string, text: string) {
       chatMessages.classList.remove('hidden')
-      const wrapper = document.createElement('div')
-      wrapper.className = role === 'user' ? 'flex justify-end' : 'flex justify-start'
+      const el = document.createElement('div')
+      el.className = role === 'user'
+        ? 'flex justify-end'
+        : 'flex justify-start'
       const bubble = document.createElement('div')
       bubble.className = role === 'user'
-        ? 'bg-sage text-white rounded-2xl rounded-br-sm px-4 py-2 max-w-[80%] text-sm'
-        : 'bg-blush-light/40 text-charcoal rounded-2xl rounded-bl-sm px-4 py-2 max-w-[80%] text-sm leading-relaxed'
-      if (role === 'assistant') {
-        const escaped = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-        let html = escaped.replace(/\[\[ADD:([^:]+):([^\]]+)\]\]/g, (_, name, price) => {
-          const safeName = name.replace(/'/g, "\\'")
-          return `<button onclick="(window).addToCart('${safeName}', '${price}')" class="inline-block mt-1 px-3 py-1 rounded-lg bg-sage/20 text-sage text-xs font-bold hover:bg-sage/30 transition-colors">+ Add ${name} to cart</button>`
-        })
-        html = html.replace(/\((\d{3})\)\s*(\d{3})-(\d{4})/g, '<a href="tel:$1$2$3" class="underline">($1) $2-$3</a>')
-        html = html.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '<a href="mailto:$1" class="underline">$1</a>')
-        bubble.innerHTML = html
-      } else {
-        bubble.textContent = text
-      }
-      wrapper.appendChild(bubble)
-      chatMessages.appendChild(wrapper)
+        ? 'bg-sage/10 text-charcoal rounded-xl rounded-tr-sm px-4 py-2.5 max-w-[80%] text-sm leading-relaxed'
+        : 'bg-blush-light/50 text-charcoal rounded-xl rounded-tl-sm px-4 py-2.5 max-w-[80%] text-sm leading-relaxed'
+      bubble.innerHTML = role === 'user' ? escapeHtml(text) : linkify(escapeHtml(text))
+      el.appendChild(bubble)
+      chatMessages.appendChild(el)
       chatMessages.scrollTop = chatMessages.scrollHeight
     }
-
     function showTyping() {
       const el = document.createElement('div')
       el.id = 'typing-indicator'
       el.className = 'flex justify-start'
-      el.innerHTML = '<div class="bg-blush-light/40 text-muted rounded-2xl rounded-bl-sm px-4 py-2 text-sm">Thinking...</div>'
+      el.innerHTML = '<div class="bg-blush-light/50 rounded-xl rounded-tl-sm px-4 py-2.5"><div class="flex gap-1.5 items-center h-5"><span class="w-1.5 h-1.5 rounded-full bg-sage/40 animate-bounce"></span><span class="w-1.5 h-1.5 rounded-full bg-sage/40 animate-bounce" style="animation-delay:.15s"></span><span class="w-1.5 h-1.5 rounded-full bg-sage/40 animate-bounce" style="animation-delay:.3s"></span></div></div>'
       chatMessages.appendChild(el)
       chatMessages.scrollTop = chatMessages.scrollHeight
     }
-
-    async function sendMessage() {
-      const text = chatInput.value.trim()
+    async function sendChat(text: string) {
       if (!text || chatBusy) return
       chatBusy = true
       chatInput.value = ''
-      addMessage('user', text)
+      addMsg('user', text)
       showTyping()
       try {
         const res = await fetch('/api/chat', {
@@ -305,21 +283,27 @@ import { SITE, PACKAGES, ADD_ONS, FAQS, PORTFOLIO } from '../lib/config'
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message: text, history: chatHistory }),
         })
-        const data = await res.json()
         document.getElementById('typing-indicator')?.remove()
-        const reply = data.reply || "I'm not sure — email us at hello@larkandbower.com!"
-        addMessage('assistant', reply)
+        const data = await res.json()
+        const reply = data.reply || 'I\'m not sure — email us at hello@bloomandvow.com!'
+        addMsg('assistant', reply)
         chatHistory.push({ role: 'user', content: text })
         chatHistory.push({ role: 'assistant', content: reply })
-        if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20)
+        if (chatHistory.length > 20) chatHistory.splice(0, chatHistory.length - 20)
       } catch {
         document.getElementById('typing-indicator')?.remove()
-        addMessage('assistant', 'Something went wrong. Email us!')
+        addMsg('assistant', 'Something went wrong. Email us at hello@bloomandvow.com!')
       }
       chatBusy = false
+      chatInput.focus()
     }
-
-    chatSend.addEventListener('click', sendMessage)
-    chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendMessage() })
+    chatSend.addEventListener('click', () => sendChat(chatInput.value.trim()))
+    chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendChat(chatInput.value.trim()) })
+    document.querySelectorAll('.chat-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        sendChat((btn as HTMLElement).dataset.msg!)
+        chatQuick.remove()
+      })
+    })
   </script>
 </Layout>
